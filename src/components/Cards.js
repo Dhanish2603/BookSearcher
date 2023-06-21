@@ -4,6 +4,7 @@ function Cards(item) {
 
   return (<Fragment>
     
+    <div>image of book: <img height="100px" width = "100px" src={item.cover_img}></img></div>
     <div>author section:{item.author}</div>
     <div>cover_id section:{item.cover_id}</div>
     <div>edition_count section:{item.edition_count}</div>

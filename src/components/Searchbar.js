@@ -1,18 +1,11 @@
 import React, { useRef, useState } from "react";
 import Cards from "./Cards";
+import notFound from "./notFound.jpg";
 function Searchbar() {
   const URL = "http://openlibrary.org/search.json?title=";
-  const [books, setBooks] = useState([
-    {
-      id: null,
-      author: "",
-      cover_id: null,
-      edition_count: null,
-      first_publish_year: null,
-      title: "",
-    },
-  ]);
+  const [books, setBooks] = useState([]);
   const inputRef = useRef("");
+
   const searchHandler = async (event) => {
     try {
       console.log("working");
@@ -45,11 +38,25 @@ function Searchbar() {
       console.log(error);
     }
   };
+  const booksWithCovers = books.map((singleBook) => {
+    return {
+      ...singleBook,
+      // removing /works/ to get only id
+      id: singleBook.id.replace("/works/", ""),
+      cover_img: singleBook.cover_id
+      ? `https://covers.openlibrary.org/b/id/${singleBook.cover_id}-L.jpg`
+      : notFound,
+    };
+  });
+
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(inputRef.current.value);
     searchHandler();
-    console.log(books);
+   
+    
+    console.log(booksWithCovers);
+    console.log("workinfds")
+    // console.log(books);
   };
 
   return (
@@ -59,7 +66,7 @@ function Searchbar() {
         <button onClick={submitHandler}>Search</button>
       </form>
       <div className="hello">
-        {books.map((item, index) => {
+        {booksWithCovers.map((item, index) => {
           return <Cards key={index} {...item} />;
         })}
       </div>
