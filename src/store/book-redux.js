@@ -4,36 +4,20 @@ let defaultItem = [];
 const bookSlice = createSlice({
   name: "bookSearch",
   initialState: {
-    items: [],
-    URL: "http://openlibrary.org/search.json?title=",
+    items: defaultItem,
+    URL: "",
   },
   reducers: {
-   async SearchFinder(state, action) {
-      try {
-        const value = action.payload;
-        // const response = await fetch(`${state.URL}${value}`);
-        // const mainData = await response.json();
-        // const { docs } = mainData;
-        // console.log("docs",docs);
-        // const title = docs[0].title;
-        // console.log(docs[0].title);
-        // // await state.items.push(docs[0].title);
-          // console.log("dhasd",state.items);
-          // console.log("dhasd",state.items);
-        state.items.push("dhansih")
-      } catch (error) {
-        console.log(error)
+    searchFinder(state, action) {
+      const bookData = action.payload;
+      if (bookData) {
+        bookData.map((items) => {
+          state.items.push(items);
+        });
       }
-      
-      
-      console.log("dhasd",state.items);
-        state.items.push("dhansih")
-      
-      // console.log(state.items);
     },
   },
 });
 
 export const bookActions = bookSlice.actions;
 export default bookSlice.reducer;
-
