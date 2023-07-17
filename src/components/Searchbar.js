@@ -1,15 +1,13 @@
 import React, { useRef } from "react";
 // import Cards from "./Cards";
 import notFound from "../images/notFound.jpg";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { bookActions } from "../store/book-redux";
+import { Container } from "react-bootstrap";
 
 function Searchbar() {
   const inputRef = useRef("");
-  const data =useSelector(state=>state.book.items);
   const dispatch = useDispatch();
-
-
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -22,7 +20,7 @@ function Searchbar() {
       const {
         key,
         author_name,
-        cover_i,  
+        cover_i,
         edition_count,
         first_publish_year,
         title,
@@ -37,23 +35,23 @@ function Searchbar() {
       };
     });
 
-    const bookWithCover = newBooks.map((mainData)=>{
-      return{
-      ...mainData,
-      id:(mainData.id).replace("/works/",""),
-       cover_img: mainData.id? `https://covers.openlibrary.org/b/id/${mainData.cover_id}-L.jpg`:notFound,
-  }}); 
+    const bookWithCover = newBooks.map((mainData) => {
+      return {
+        ...mainData,
+        id: mainData.id.replace("/works/", ""),
+        cover_img: mainData.id
+          ? `https://covers.openlibrary.org/b/id/${mainData.cover_id}-L.jpg`
+          : notFound,
+      };
+    });
     dispatch(bookActions.searchFinder(bookWithCover));
   };
   return (
-    <div>
-      <form onSubmit={submitHandler}>
-        <input type="text" ref={inputRef} />
-        <button onClick={submitHandler}>Search</button>
+    <div className="d-flex justify-content-center col bg-primary">  
+      <form className=" rowd-flex justify-content-center" onSubmit={submitHandler}>
+        <input type="text" ref={inputRef} required />
+        <button className="bg-primary" onClick={submitHandler}>Search</button>
       </form>
-    
-    
-      <div className="cards"></div>
     </div>
   );
 }

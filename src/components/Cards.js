@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import notFound from "../images/notFound.jpg"
 function Cards(item) {
   const data = useSelector((state) => state.book.items);
 
@@ -15,8 +16,8 @@ function Cards(item) {
           {data.map((item, i) => {
             return (
               <Col key={i} className="row">
-                <Card style={{ width: "18rem" }}>
-                  <Card.Img variant="top" src={item.cover_img} />
+                <Card className="m-1" style={{ width: "18rem" ,backgroundColor:"pink"}}>
+                  <Card.Img className=" m-auto  p-2" variant="top" src={item.cover_img} style={{ width: "200px", height:"200px" }}/>
                   <Card.Body>
                     <Card.Title>{item.title}</Card.Title>
                     <Card.Text>
@@ -39,9 +40,9 @@ function Cards(item) {
 
 export default Cards;
 
-{
+
   /* <div>{item.titleData}</div>   */
-}
+
 // <div>image of book: <img height="100px" width = "100px" src={item.cover_img} alt='notfound'></img></div>
 // <div>author section:{item.author}</div>
 // <div>cover_id section:{item.cover_id}</div>
